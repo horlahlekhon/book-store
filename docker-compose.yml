@@ -1,0 +1,31 @@
+version: '2'
+services:
+  #  run the database service first 
+  db:
+    image: "postgres:latest"
+    volumes:
+      - "pythondata:/var/lib/postgresql/pythondata"
+    # we pass an env_file so that postgres database and user can be created
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bookstore
+      POSTGRES_PORT: 5432
+
+  bookstore:
+    build : 
+      context : . # build the app with a docker file mfound in this context i.e direcory
+      dockerfile: Dockerfile
+    volumes:
+      - /home/lekan/Documents/workspace/python3/book-store:/app/bookstore
+    working_dir: /app/bookstore
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+volumes:
+  pythondata:
+    
+  
+      
+
