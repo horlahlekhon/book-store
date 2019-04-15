@@ -17,6 +17,5 @@ RUN pip install -r requirements.txt
 
 COPY . /app/bookstore
 
-
 ENTRYPOINT [ "python","manage.py","runserver"]
 

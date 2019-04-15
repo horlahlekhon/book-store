@@ -15,7 +15,7 @@ class DevelopmentConfig(BaseConfig):
 
     user = "postgres"
     password = "postgres"
-    host = 'db' # since we are using docker compose, docker will create an alias for the host using the db name
+    host = 'postgres' # since we are using docker compose, docker will create an alias for the host using the db name
     database = "bookstore"
     port = 5432
     DEBUG = True
