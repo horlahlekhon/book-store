@@ -1,42 +1,46 @@
 version: '3'
-  services:
-    # #  run the database service first 
-    # db:
-    #   image: "postgres:latest"
-    #   volumes:
-    #     - "pythondata:/var/lib/postgresql/pythondata"
-    #     - ./init_db.sql:/docker-entrypoint-initdb.d/init.sql
-    #   # we pass an env_file so that postgres database and user can be created
-    #   environment:
-    #     POSTGRES_USER: postgres
-    #     POSTGRES_PASSWORD: postgres
-    #     POSTGRES_DB: bookstore
-    #     POSTGRES_PORT: 5432
-    #   # networks: 
-    #   #   - bookstore
 
-    bookstore:
-      build : 
-        context : . # build the app with a docker file mfound in this context i.e direcory
-        dockerfile: Dockerfile
-      volumes:
-        - /home/lekan/Documents/workspace/python3/book-store:/app/bookstore
-      working_dir: /app/bookstore
-      ports:
-        - 5000:5000
-      # links:
-      #   - db 
-      # networks: 
-      #   - bookstore 
-  #     depends_on:
-  #       - db
-  # volumes:
-  #   pythondata:
+services:
+  #  run the database service first 
+  # db:
+  #   image: "postgres:latest"
+  #   volumes:
+  #     - "pythondata:/var/lib/postgresql/pythondata"
+  #     - ./init_db.sql:/docker-entrypoint-initdb.d/init.sql
+  #   # we pass an env_file so that postgres database and user can be created
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRlinks:
+    #   - db ES_PASSWORD: postgres
+  #     POSTGRES_DB: bookstore
+  #     POSTGRES_PORT: 5432
+  #   networks: 
+  #     - bookstore
 
-  # networks: 
-  #   bookstore:
-  #     driver: "bridge"
-      
+  bookstore-python:
+    build : 
+      context : . # build the app with a docker file mfound in this context i.e direcory
+      dockerfile: Dockerfile
+    volumes:
+      - /home/lekan/Documents/workspace/python3/book-store:/app/bookstore
+      - /home/lekan/Documents/workspace/python3/keys:/data/ubanquity/conf
+    working_dir: /app/bookstore
+    env_file: .env
+    ports:
+      - 5000:5000
+    # links:
+    #   - db 
+    # networks: 
+    #   - bookstore 
+    # depends_on:
+    #   - db
+# volumes:
+#   pythondata:
+
+# networks: 
+#   bookstore:
+#     driver: "bridge"
+    
     
         
 

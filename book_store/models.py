@@ -37,8 +37,8 @@ class User(db.Model):
             print("payload ==>> ", payload)
             return jwt.encode(
                 payload,
-               "secret_key",
-               algorithm='HS256'
+               app.config.get('PRIVATE'),
+               algorithm='RS256'
             )
         except Exception as e :
             return e
@@ -59,7 +59,7 @@ class User(db.Model):
     def decode_auth_token(token):
 
         try:
-            payload = jwt.decode(token, "secret_key")
+            payload = jwt.decode(token, app.config.get('PUBLIC'), algorithms='RS256')
             return payload['sub'], payload["is_admin"]
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.',False

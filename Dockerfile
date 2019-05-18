@@ -19,3 +19,5 @@ COPY . /app/bookstore
 
 ENTRYPOINT [ "python","manage.py","runserver"]
 
+
+

@@ -10,7 +10,7 @@ from Configs import *
 app = Flask(__name__)
 
 
-app.config.from_object(DevelopmentConfig)
+app.config.from_object(Production)
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)

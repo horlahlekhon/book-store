@@ -4,8 +4,9 @@ services:
   db:
     image: postgres:latest
     volumes:
-      - "pythondata:/var/lib/postgresql/pythondata"
-      - ./book-store/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+      - "/home/lekan/Documents/workspace/python3/book-store/bookstore_data:/var/lib/postgresql/bookstore_data"
+      - /home/lekan/Documents/workspace/python3/book-store/init_db.sql:/docker-entrypoint-initdb.d/init-python.sql
+      - /home/lekan/go_projects/src/book-store/data.sql:/docker-entrypoint-initdb.d/init-go.sql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -17,14 +18,22 @@ services:
         constraints: [node.role == manager]
     ports:
       - 5432:5432
-  bookstore:
-    image: lekan2910/book-store
+  bookstore-python:
+    image: book-store_bookstore-python #lekan2910/book-store
     deploy:
       replicas: 2
     ports:
       - 5000:5000
     depends_on:
       - db
+  # bookstore-golang:
+  #   image: book-store_book-store-go:latest
+  #   deploy:
+  #     replicas: 2
+  #   ports:
+  #     - 9000:9000
+  #   depends_on:
+  #     - db
   visualizer:
     image: dockersamples/visualizer
     deploy:
@@ -36,4 +45,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
-  pythondata:
+  bookstore_data:
+
+# networks:
+#  bookstore:
+#    driver: "bridge"
+
